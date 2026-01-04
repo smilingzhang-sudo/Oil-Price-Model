@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scorecard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div style="font-weight:800;letter-spacing:-0.02em">OUPS</div>
+      <span class="badge">Scorecard</span>
+    </div>
+    <div class="navlinks">
+      <a href="index.html">Dashboard</a>
+      <a href="scorecard.html">Scorecard</a>
+      <a href="backtest.html">Backtest</a>
+      <a href="methodology.html">Methodology</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="card">
+    <h2>配置驱动的 Scorecard</h2>
+    <div class="subtle">
+      这页的目标：把 <span class="code">assets/oups_config_v1.json</span> 当成“唯一真相”，前端不写死任何指标名称与权重。
+      你后续只要更新 Excel → 重新生成 config → 网站自动跟着变。
+    </div>
+    <div class="btnrow">
+      <a class="btn" href="assets/oups_config_v1.json" download>下载配置 JSON</a>
+      <a class="btn" href="assets/oups_config_v1.yml" download>下载配置 YAML</a>
+    </div>
+    <div class="notice" style="margin-top:12px">
+      下一步接后端：返回 latest snapshot（总分、分桶、指标档位分），这页就能展示“真实当前状态”。
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h2>后端返回数据格式（建议）</h2>
+<pre class="code">{
+  "as_of": "2026-01-03",
+  "total_score": 63,
+  "buckets": [{"code":"A","score":70}, ...],
+  "indicators": [{"name":"OECD 库存 vs 5年均值","score":75,"current_value":"...","updated_at":"..."}]
+}</pre>
+  </div>
+
+  <div class="footer">
+    <div>提示：你要“日更 → 小时/分钟”时，只需改调度与缓存，不改 scorecard 结构。</div>
+  </div>
+</div>
+</body>
+</html>

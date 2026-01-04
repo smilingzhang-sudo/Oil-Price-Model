@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Backtest</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div style="font-weight:800;letter-spacing:-0.02em">OUPS</div>
+      <span class="badge">Backtest</span>
+    </div>
+    <div class="navlinks">
+      <a href="index.html">Dashboard</a>
+      <a href="scorecard.html">Scorecard</a>
+      <a href="backtest.html">Backtest</a>
+      <a href="methodology.html">Methodology</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="card">
+    <h2>回测（占位页）</h2>
+    <div class="subtle">
+      你要求的回测目的有两点：<br/>
+      1）用历史数据评估模型准确度（TotalScore 与未来收益/方向的关系）<br/>
+      2）为未来调权重/参数提供依据（网格搜索或 walk-forward）<br/><br/>
+      本页先提供“你后端应输出什么”的接口规范，接入后可直接画图。
+    </div>
+  </div>
+
+  <div class="grid" style="margin-top:14px">
+    <div class="card">
+      <h2>核心指标（建议输出）</h2>
+      <table class="table">
+        <thead><tr><th>指标</th><th class="right">示例值</th></tr></thead>
+        <tbody>
+          <tr><td>命中率（未来 N 天涨跌）</td><td class="right">—</td></tr>
+          <tr><td>AUC（分类能力）</td><td class="right">—</td></tr>
+          <tr><td>按分位分组未来平均收益</td><td class="right">—</td></tr>
+          <tr><td>滚动表现（近1年）</td><td class="right">—</td></tr>
+        </tbody>
+      </table>
+      <div class="subtle">后端可以每天离线生成回测报告，然后前端读取 JSON 展示。</div>
+    </div>
+
+    <div class="card" style="grid-column: span 2">
+      <h2>分位分组收益曲线（示意）</h2>
+      <div id="btChart" style="height:320px;width:100%"></div>
+      <div class="subtle">接入后端后，替换为真实 backtest 输出。</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h2>建议接口</h2>
+<pre class="code">GET /api/backtest/summary
+GET /api/backtest/quintiles?horizon=20
+GET /api/backtest/rolling?horizon=20&amp;window=252</pre>
+  </div>
+
+  <div class="footer">
+    <div>备注：回测务必使用 walk-forward（时间序列）避免“未来数据泄漏”。</div>
+  </div>
+</div>
+
+<script>
+  const c = echarts.init(document.getElementById('btChart'));
+  const xs = Array.from({length:10}, (_,i)=>`Q${i+1}`);
+  const ys = [ -1.2, -0.6, 0.0, 0.4, 1.1, 1.6, 2.1, 2.6, 3.0, 3.4 ];
+  c.setOption({
+    tooltip:{trigger:'axis'},
+    xAxis:{type:'category',data:xs,axisLabel:{color:'rgba(255,255,255,0.65)'}},
+    yAxis:{type:'value',axisLabel:{color:'rgba(255,255,255,0.65)'}},
+    series:[{type:'bar',data:ys}]
+  });
+  window.addEventListener('resize',()=>c.resize());
+</script>
+</body>
+</html>

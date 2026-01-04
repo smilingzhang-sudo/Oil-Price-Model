@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Methodology</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div style="font-weight:800;letter-spacing:-0.02em">OUPS</div>
+      <span class="badge">Methodology</span>
+    </div>
+    <div class="navlinks">
+      <a href="index.html">Dashboard</a>
+      <a href="scorecard.html">Scorecard</a>
+      <a href="backtest.html">Backtest</a>
+      <a href="methodology.html">Methodology</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="card">
+    <h2>方法论（与 Excel 一致）</h2>
+    <div class="subtle">
+      <b>OUPS</b> 是一个“结构性评分模型”，用 0/25/50/75/100 五档对每个指标进行打分，并按权重加总得到总分（0–100）。<br/><br/>
+      <b>刷新频率</b><br/>
+      - 默认日更（最稳）<br/>
+      - 预留小时/分钟：高频指标可更新；低频指标沿用最近值<br/><br/>
+      <b>回测</b><br/>
+      - 目标：检验总分高低是否对未来收益/方向有统计显著差异<br/>
+      - 方法：walk-forward（时间序列）<br/>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h2>配置即规范</h2>
+    <div class="subtle">
+      你现在的“唯一真相”在 <span class="code">assets/oups_config_v1.json</span>。<br/>
+      从 Excel 更新模型的正确流程是：Excel → 生成 config → 网站自动更新。
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>Disclaimer：本内容仅供研究与学习，不构成投资建议。</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OUPS_2026 Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="brand">
+      <div style="font-weight:800;letter-spacing:-0.02em">OUPS_2026</div>
+      <span class="badge">v1.0</span>
+      <span class="badge">Static MVP</span>
+    </div>
+    <div class="navlinks">
+      <a href="index.html">Dashboard</a>
+      <a href="scorecard.html">Scorecard</a>
+      <a href="backtest.html">Backtest</a>
+      <a href="methodology.html">Methodology</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div id="errorBox" class="notice" style="display:none"></div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>OUPS 总分</h2>
+      <div class="kpi">
+        <div>
+          <div class="value" id="kpiScore">—</div>
+          <div class="label">分数区间：0–100（越高表示越偏“上涨”）</div>
+        </div>
+        <div class="pill" id="kpiLabel"><span>状态</span> <b>—</b></div>
+      </div>
+      <div class="subtle" style="margin-top:10px">
+        数据时间：<span id="asOf">—</span><br/>
+        配置文件：<span class="badge" id="configPath">—</span>
+      </div>
+      <div class="btnrow">
+        <a class="btn" href="assets/oups_config_v1.json" download>下载配置 JSON</a>
+        <a class="btn" href="assets/oups_config_v1.yml" download>下载配置 YAML</a>
+      </div>
+      <div class="notice" style="margin-top:12px">
+        说明：本页面默认使用 <b>sample</b> 数据离线展示。你接入后端后，把 <span class="code">app.js</span> 里的 <span class="code">DATA_MODE</span> 改成 <span class="code">api</span> 即可。
+      </div>
+    </div>
+
+    <div class="card" style="grid-column: span 2">
+      <h2>总分历史（示例）</h2>
+      <div id="chart" style="height:320px; width:100%"></div>
+      <div class="subtle">图表仅示例。接入后端后可换成真实历史总分/油价对比。</div>
+    </div>
+  </div>
+
+  <div class="grid" style="margin-top:14px">
+    <div class="card">
+      <h2>分桶得分</h2>
+      <table class="table">
+        <thead>
+          <tr><th>桶</th><th>权重</th><th class="right">得分</th></tr>
+        </thead>
+        <tbody id="bucketBody"></tbody>
+      </table>
+      <div class="subtle">桶权重由 Excel 的指标权重汇总而来。</div>
+    </div>
+
+    <div class="card" style="grid-column: span 2">
+      <h2>指标明细</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>桶/子项</th>
+            <th>指标</th>
+            <th class="right">权重</th>
+            <th class="right">档位分</th>
+            <th class="right">当前值</th>
+            <th>更新时间</th>
+          </tr>
+        </thead>
+        <tbody id="indicatorBody"></tbody>
+      </table>
+      <div class="subtle">档位分严格限定为 0/25/50/75/100（与 Excel 一致）。</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>Disclaimer：本网站为研究用途的“评分模型”展示，不构成投资建议。</div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
